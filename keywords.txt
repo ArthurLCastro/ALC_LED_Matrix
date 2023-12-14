@@ -1,0 +1,13 @@
+###################################################
+# Mapa de colorização sintática para ALC_LED_Matrix
+###################################################
+
+# Tipos de Dados (KEYWORD1)
+	ALC_LED_Matrix	KEYWORD1
+
+# Métodos e Funções (KEYWORD2)
+	begin           KEYWORD2
+	clear			KEYWORD2
+	fill			KEYWORD2
+	update			KEYWORD2
+	select_figure	KEYWORD2
