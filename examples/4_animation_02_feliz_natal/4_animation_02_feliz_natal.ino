@@ -7,7 +7,7 @@
 #include <ALC_LED_Matrix_Figures.h>
 
 // ---------- Definindo macros ----------
-#define INTERVALO_ENTRE_FIGURAS_MS 250
+#define INTERVALO_ENTRE_FIGURAS_MS 500
 
 // ---------- Declaracao de variaveis para matriz de LEDs ----------
 uint8_t matrix_pins[5][5] = {
@@ -16,6 +16,13 @@ uint8_t matrix_pins[5][5] = {
 };
 
 // ---------- Declaracao de variaveis para animacoes ----------
+const byte* animacao[13] = {
+  letra_F[0], letra_E[0], letra_L[0], letra_I[0], letra_Z[0],
+  vazio[0],
+  letra_N[0], letra_A[0], letra_T[0], letra_A[0], letra_L[0], ponto_de_exclamacao[0],
+  vazio[0]
+};
+
 unsigned long previousTime=0;
 unsigned int frame_idx=0;
 
@@ -30,52 +37,13 @@ void setup() {
 
 // ---------- Loop infinito ----------
 void loop() {
-  switch (frame_idx) {
-    case 0:
-      matriz5x5.select_figure(letra_F);   // Atualiza 'matriz_buffer'
-      break;
-    case 1:
-      matriz5x5.select_figure(letra_E);   // Atualiza 'matriz_buffer'
-      break;
-    case 2:
-      matriz5x5.select_figure(letra_L);   // Atualiza 'matriz_buffer'
-      break;
-    case 3:
-      matriz5x5.select_figure(letra_I);   // Atualiza 'matriz_buffer'
-      break;
-    case 4:
-      matriz5x5.select_figure(letra_Z);   // Atualiza 'matriz_buffer'
-      break;
-    case 5:
-      matriz5x5.select_figure(vazio);   // Atualiza 'matriz_buffer'
-      break;
-    case 6:
-      matriz5x5.select_figure(letra_N);   // Atualiza 'matriz_buffer'
-      break;
-    case 7:
-      matriz5x5.select_figure(letra_A);   // Atualiza 'matriz_buffer'
-      break;
-    case 8:
-      matriz5x5.select_figure(letra_T);   // Atualiza 'matriz_buffer'
-      break;
-    case 9:
-      matriz5x5.select_figure(letra_A);   // Atualiza 'matriz_buffer'
-      break;
-    case 10:
-      matriz5x5.select_figure(letra_L);   // Atualiza 'matriz_buffer'
-      break;
-    case 11:
-      matriz5x5.select_figure(ponto_de_exclamacao);   // Atualiza 'matriz_buffer'
-      break;
-    case 12:
-      matriz5x5.select_figure(vazio);   // Atualiza 'matriz_buffer'
-      break;
-  }
 
-  if (millis() - previousTime >= INTERVALO_ENTRE_FIGURAS_MS + 500){
+  if (millis() - previousTime >= INTERVALO_ENTRE_FIGURAS_MS){
     previousTime = millis();
     
-    if (frame_idx >= 12) {
+    matriz5x5.select_figure(animacao[frame_idx]);   // Atualiza a matriz de buffer
+    
+    if (frame_idx >= (sizeof(animacao)/sizeof(const byte*) - 1)) {
       frame_idx = 0;
     } else {
       frame_idx++;
@@ -84,3 +52,4 @@ void loop() {
 
   matriz5x5.update();     // Percorre todas as linhas da matriz atualizando os estados dos LEDs
 }
+

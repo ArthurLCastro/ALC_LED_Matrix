@@ -10,7 +10,7 @@
 #include <Arduino.h>
 
 // Macros para Debug:
-#define DEBUG_MATRIZ_BUFFER
+// #define DEBUG_MATRIZ_BUFFER
 
 // Macros:
 #define TEMPO_POR_LINHA_MS 1    // Tempo maximo para atualizar cada uma das 5 linhas (para 24Hz) seria 8ms
@@ -31,7 +31,7 @@ class ALC_LED_Matrix {
     void clear();
     void fill();
     void update();
-    void select_figure(const byte figure[5][5]);
+    void select_figure(const byte* figure);
 
   private:
     uint8_t _pins[5][5];

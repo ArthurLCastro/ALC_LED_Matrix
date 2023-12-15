@@ -1,4 +1,4 @@
-// Animation 03 - Sino Piscando
+// Animation 03 - Sino Badalando
 // Arthur L. Castro
 // Dezembro de 2023
 
@@ -16,6 +16,7 @@ uint8_t matrix_pins[5][5] = {
 };
 
 // ---------- Declaracao de variaveis para animacoes ----------
+const byte* animacao[4] = {sino_centro[0], sino_esquerda[0], sino_centro[0], sino_direita[0]};
 unsigned long previousTime=0;
 unsigned int frame_idx=0;
 
@@ -30,19 +31,13 @@ void setup() {
 
 // ---------- Loop infinito ----------
 void loop() {
-  switch (frame_idx) {
-    case 0:
-      matriz5x5.select_figure(sino);   // Atualiza 'matriz_buffer'
-      break;
-    case 1:
-      matriz5x5.select_figure(vazio);
-      break;
-  }
 
   if (millis() - previousTime >= INTERVALO_ENTRE_FIGURAS_MS){
     previousTime = millis();
     
-    if (frame_idx >= 1) {
+    matriz5x5.select_figure(animacao[frame_idx]);   // Atualiza a matriz de buffer
+    
+    if (frame_idx >= (sizeof(animacao)/sizeof(const byte*) - 1)) {
       frame_idx = 0;
     } else {
       frame_idx++;

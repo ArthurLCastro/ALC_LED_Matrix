@@ -73,12 +73,24 @@ void ALC_LED_Matrix::update() {
 }
 
 // Funcoes para controle das figuras
-void ALC_LED_Matrix::select_figure(const byte figure[5][5]) {
+void ALC_LED_Matrix::select_figure(const byte* figure) {
     // Copia todos os elementos da matriz figura para a matriz buffer
 
     for (int i=0; i<=4; i++) {
         for (int j=0; j<=4; j++) {
-            _buffer[i][j] = figure[i][j];
+            _buffer[i][j] = figure[i * 5 + j];
+            /*
+              Passa o conteudo de figure[0] para _buffer[0][0]
+              Passa o conteudo de figure[1] para _buffer[0][1]
+              Passa o conteudo de figure[2] para _buffer[0][2]
+              Passa o conteudo de figure[3] para _buffer[0][3]
+              Passa o conteudo de figure[4] para _buffer[0][4]
+              Passa o conteudo de figure[5] para _buffer[1][0]
+              Passa o conteudo de figure[6] para _buffer[1][1]
+              ...
+              Passa o conteudo de figure[23] para _buffer[4][3]
+              Passa o conteudo de figure[24] para _buffer[4][4]
+            */
 
             #ifdef DEBUG_MATRIZ_BUFFER
                 Serial.print("_buffer[");

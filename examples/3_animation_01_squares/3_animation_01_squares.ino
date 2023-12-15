@@ -16,6 +16,7 @@ uint8_t matrix_pins[5][5] = {
 };
 
 // ---------- Declaracao de variaveis para animacoes ----------
+const byte* animacao[4] = {ponto_central[0], quadrado_3x3[0], quadrado_5x5[0], quadrado_3x3[0]};
 unsigned long previousTime=0;
 unsigned int frame_idx=0;
 
@@ -30,25 +31,13 @@ void setup() {
 
 // ---------- Loop infinito ----------
 void loop() {
-  switch (frame_idx) {
-    case 0:
-      matriz5x5.select_figure(ponto_central);   // Atualiza 'matriz_buffer'
-      break;
-    case 1:
-      matriz5x5.select_figure(quadrado_3x3);   // Atualiza 'matriz_buffer'
-      break;
-    case 2:
-      matriz5x5.select_figure(quadrado_5x5);   // Atualiza 'matriz_buffer'
-      break;
-    case 3:
-      matriz5x5.select_figure(quadrado_3x3);   // Atualiza 'matriz_buffer'
-      break;
-  }
 
   if (millis() - previousTime >= INTERVALO_ENTRE_FIGURAS_MS){
     previousTime = millis();
     
-    if (frame_idx >= 3) {
+    matriz5x5.select_figure(animacao[frame_idx]);   // Atualiza a matriz de buffer
+    
+    if (frame_idx >= (sizeof(animacao)/sizeof(const byte*) - 1)) {
       frame_idx = 0;
     } else {
       frame_idx++;
